@@ -1,0 +1,18 @@
+@font-face { font-family: "Garamond"; src: url("/fonts/EBGaramond-Regular.ttf"); }
+@font-face { font-family: "Fell"; src: url("/fonts/IMFeENsc28P.ttf"); }
+:root { --paper: #f3ead8; --ink: #2b241d; --muted: #6b6259; --rule: #b9a98c; --red: #8a2a1e; --green: #3d5a2a; }
+@media (prefers-color-scheme: dark) { :root { --paper: #1f1b16; --ink: #eadfca; --muted: #a89c88; --rule: #5a4f40; --red: #e0806e; --green: #a8c48e; } }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 19px/1.5 "Garamond", Georgia, serif; }
+main { max-width: 34rem; margin: 0 auto; padding: 3rem 16px 4rem; }
+.series { font: 0.8rem "Fell", serif; letter-spacing: 0.15em; color: var(--muted); text-align: center; }
+h1 { font: 2rem/1.15 "Fell", serif; text-align: center; margin: 0.4rem 0 1.5rem; }
+hr { border: 0; border-top: 1px solid var(--rule); margin: 1.5rem 0; }
+label { display: block; margin-bottom: 0.4rem; }
+.row { display: flex; gap: 0.6rem; }
+input { flex: 1; min-width: 0; font: inherit; padding: 0.5rem 0.7rem; background: transparent; color: var(--ink); border: 1px solid var(--rule); border-radius: 2px; }
+button { font: inherit; padding: 0.5rem 1.1rem; background: var(--ink); color: var(--paper); border: 0; border-radius: 2px; cursor: pointer; }
+#result { min-height: 3em; margin-top: 1.2rem; }
+.no { color: var(--red); } .yes { color: var(--green); }
+.small { font-size: 0.85rem; color: var(--muted); }
+a { color: inherit; }

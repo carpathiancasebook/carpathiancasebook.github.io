@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Check your answer</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<main>
+<div class="series">CARPATHIAN CASEBOOK · CASE 1</div>
+<h1>The Strigoi of Valea Corbului</h1>
+<p>One name left on your list? Type the suspect's number. This page only tells you if you are right. It does not give the answer away.</p>
+<hr>
+<form id="f">
+  <label for="n">Suspect number</label>
+  <div class="row"><input id="n" inputmode="numeric" autocomplete="off" placeholder="1 to 4000"><button>Check</button></div>
+</form>
+<div id="result" aria-live="polite"></div>
+<hr>
+<p class="small">Stuck? The hints page in the booklet says exactly who each document rules out. The full solution is in the answer booklet.</p>
+</main>
+<script>
+const SALT = "1a31be8a4a70f387";
+const HASH = "5aa65277582c63f3051d49f6a00c71c942d2e9ab5d8b1e1f2a0f21bbfd279ac4";
+const out = document.getElementById("result");
+async function sha256(s) {
+  const b = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s));
+  return [...new Uint8Array(b)].map(x => x.toString(16).padStart(2, "0")).join("");
+}
+document.getElementById("f").addEventListener("submit", async e => {
+  e.preventDefault();
+  const v = document.getElementById("n").value.trim().replace(/^no\.?\s*/i, "");
+  const n = Number(v);
+  if (!/^\d+$/.test(v) || n < 1 || n > 4000) {
+    out.className = "no";
+    out.textContent = "Type a number from 1 to 4000, as it appears in the suspect list.";
+    return;
+  }
+  if (await sha256(`cc1:${SALT}:${n}`) === HASH) {
+    out.className = "yes";
+    out.innerHTML = `<b>Correct.</b> Suspect no. ${n} killed the notary. Open the answer booklet to see how every document points to them.`;
+  } else {
+    out.className = "no";
+    out.innerHTML = `<b>Not this one.</b> Suspect no. ${n} is innocent. Go back to your case tracker and recheck the last document where your count felt wrong.`;
+  }
+});
+</script>
+</body>
+</html>
